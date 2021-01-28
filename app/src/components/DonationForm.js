@@ -40,7 +40,6 @@ export default function DonationForm() {
                  <input type="text" name="type" placeholder="veg or nonveg"/>
                 </label>
                 <br />
-
                 <input type="submit" value="Submit" />
             </form>
             
