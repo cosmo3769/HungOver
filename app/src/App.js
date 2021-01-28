@@ -1,10 +1,14 @@
 import './App.css';
+import React from 'react';
+import DonationForm from './components/DonationForm';
 
 function App() {
   return (
     <div className="App">
-      ready for the development
-      
+      <div className="container">
+        <DonationForm />
+      </div>
+
     </div>
   );
 }
