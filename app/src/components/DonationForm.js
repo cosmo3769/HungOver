@@ -16,17 +16,32 @@ export default function DonationForm() {
                 </label>
                 <br />
                 <label>
-                 Number of plates:
-                 <input type="number" name="Plates" />
+                 Number of people invited:
+                 <input type="number" name="people invited" />
                 </label>
                 <br />
                 <label>
-                 Type:
+                 Number of people that turned up:
+                 <input type="number" name="people turned up" />
+                </label>
+                <br />
+                <label>
+                 Number of plates ordered:
+                 <input type="number" name="Plates ordered" />
+                </label>
+                <br />
+                <label>
+                 Number of plates remaining:
+                 <input type="number" name="Plates remaining" />
+                </label>
+                <br />
+                <label>
+                 Type of food:
                  <input type="text" name="type" placeholder="veg or nonveg"/>
                 </label>
                 <br />
 
-                  <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" />
             </form>
             
         </div>
