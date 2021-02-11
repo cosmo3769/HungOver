@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { usePosition } from 'use-position';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 
 export default function DonationForm() {
@@ -22,10 +24,23 @@ export default function DonationForm() {
         error,
       } = usePosition(watch, {enableHighAccuracy: true});
 
+    function addFood(e) {
+        e.preventDefault();
+        const db = firebase.firestore();
+        db.collection("FoodData").add({
+            name: `${donorName}`,
+            peopleInvited: `${numberofInvitedGuests}`,
+            peopleTurnedUp: `${numberOfGuestAttended}`,
+            platesOrdered: `${numberOfPlates}`,
+            platesRemaining: `${platesLeft}`,
+            typeOfFood: `${typeOfFood}`
+        });
+    }
+
 
     return (
         <div>
-            <form>
+            <form onSubmit={addFood}>
                 <label>
                  Name:
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
@@ -38,27 +53,27 @@ export default function DonationForm() {
                 <br /> */}
                 <label>
                  Number of people invited:
-                 <input type="number" name="people invited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
+                 <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
                 </label>
                 <br />
                 <label>
                  Number of people that turned up:
-                 <input type="number" name="people turned up" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
+                 <input type="number" name="peopleTurnedUp" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
                 </label>
                 <br />
                 <label>
                  Number of plates ordered:
-                 <input type="number" name="Plates ordered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
+                 <input type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
                 </label>
                 <br />
                 <label>
                  Number of plates remaining:
-                 <input type="number" name="Plates remaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
+                 <input type="number" name="platesRemaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
                 </label>
                 <br />
                 <label>
                  Type of food:
-                 <input type="radio" id="non-veg" name="typeofFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
+                 <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
                  <label htmlFor="non-veg">Non-Veg</label><br />
                  <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
                  <label htmlFor="veg">Veg</label><br />
@@ -73,7 +88,7 @@ export default function DonationForm() {
                     error: {error}
                 </code>
                 <br />
-                <input type="submit" value="Submit" />
+                <button type="submit" value="Submit">Submit</button>
             </form>
             
         </div>
