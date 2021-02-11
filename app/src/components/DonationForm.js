@@ -1,15 +1,27 @@
 import React, {useState} from 'react';
+import { usePosition } from 'use-position';
 
 
 export default function DonationForm() {
 
     const [donorName, setDonorName]=useState("");
-    const [location, setLocation]= useState('');
+    // const [location, setLocation]= useState('');
     const [numberofInvitedGuests, setNumberofInvitedGuests]= useState();
     const [numberOfGuestAttended, setNumberOfGuestAttended ]= useState();
     const [numberOfPlates, setNumberOfPlates] = useState();
     const [platesLeft, setPlatesLeft]= useState();
     const [typeOfFood, setTypeOfFood]= useState();
+
+    const watch = true;
+    const {
+        latitude,
+        longitude,
+        speed,
+        timestamp,
+        accuracy,
+        error,
+      } = usePosition(watch, {enableHighAccuracy: true});
+
 
     return (
         <div>
@@ -19,11 +31,11 @@ export default function DonationForm() {
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
                 </label>
                 <br />
-                <label>
+                {/* <label>
                  Location:
                  <input type="location" name="location" required value={location} onChange={e => setLocation(e.target.value)} />
                 </label>
-                <br />
+                <br /> */}
                 <label>
                  Number of people invited:
                  <input type="number" name="people invited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
@@ -51,6 +63,15 @@ export default function DonationForm() {
                  <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
                  <label for="veg">Veg</label><br />
                 </label>
+                <br />
+                <code>
+                    latitude: {latitude}<br/>
+                    longitude: {longitude}<br/>
+                    speed: {speed}<br/>
+                    timestamp: {timestamp}<br/>
+                    accuracy: {accuracy && `${accuracy}m`}<br/>
+                    error: {error}
+                </code>
                 <br />
                 <input type="submit" value="Submit" />
             </form>
