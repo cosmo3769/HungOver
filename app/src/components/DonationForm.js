@@ -1,34 +1,35 @@
 import React, {useState} from 'react';
-import { usePosition } from 'use-position';
-import firebase from 'firebase/app';
+import firebase from '../configuration/firebase';
 import 'firebase/firestore';
 
+import {usePosition} from '../hooks/usePosition';
 
 export default function DonationForm() {
 
     const [donorName, setDonorName]=useState("");
-    // const [location, setLocation]= useState('');
     const [numberofInvitedGuests, setNumberofInvitedGuests]= useState();
     const [numberOfGuestAttended, setNumberOfGuestAttended ]= useState();
     const [numberOfPlates, setNumberOfPlates] = useState();
     const [platesLeft, setPlatesLeft]= useState();
     const [typeOfFood, setTypeOfFood]= useState("");
 
-    const watch = true;
     const {
         latitude,
         longitude,
-        speed,
         timestamp,
-        accuracy,
-        error,
-      } = usePosition(watch, {enableHighAccuracy: true});
+      } = usePosition();
+
 
     function addFood(e) {
         e.preventDefault();
         const db = firebase.firestore();
         db.collection("FoodData").add({
             name: `${donorName}`,
+            Location: ({
+                 lat: `${latitude}`,
+                 long: `${longitude}`,
+                 time: `${timestamp}`
+            }),
             peopleInvited: `${numberofInvitedGuests}`,
             peopleTurnedUp: `${numberOfGuestAttended}`,
             platesOrdered: `${numberOfPlates}`,
@@ -48,7 +49,7 @@ export default function DonationForm() {
                 <br />
                 {/* <label>
                  Location:
-                 <input type="location" name="location" required value={location} onChange={e => setLocation(e.target.value)} />
+                 <input type="location" name="location" required value={location} onChange={e =>  setLocation(e.target.value)} />
                 </label>
                 <br /> */}
                 <label>
@@ -78,15 +79,6 @@ export default function DonationForm() {
                  <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
                  <label htmlFor="veg">Veg</label><br />
                 </label>
-                <br />
-                <code>
-                    latitude: {latitude}<br/>
-                    longitude: {longitude}<br/>
-                    speed: {speed}<br/>
-                    timestamp: {timestamp}<br/>
-                    accuracy: {accuracy && `${accuracy}m`}<br/>
-                    error: {error}
-                </code>
                 <br />
                 <button type="submit" value="Submit">Submit</button>
             </form>
