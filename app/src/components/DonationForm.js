@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import firebase from '../configuration/firebase';
+import app from '../configuration/fire_config';
 import 'firebase/firestore';
 
 import {usePosition} from '../hooks/usePosition';
@@ -22,7 +22,7 @@ export default function DonationForm() {
 
     function addFood(e) {
         e.preventDefault();
-        const db = firebase.firestore();
+        const db = app.firestore();
         db.collection("FoodData").add({
             name: `${donorName}`,
             Location: ({
@@ -35,6 +35,13 @@ export default function DonationForm() {
             platesOrdered: `${numberOfPlates}`,
             platesRemaining: `${platesLeft}`,
             typeOfFood: `${typeOfFood}`
+        
+        }).then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            console.log("done");
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
         });
     }
 
