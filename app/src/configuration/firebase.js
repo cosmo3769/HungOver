@@ -1,12 +1,14 @@
 import firebase from 'firebase/app';
 
+require('dotenv').config()
+
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyCsNUbW9Tm6tZsDAf2s21u9RCipri4CFIs",
-    authDomain: "hungover.firebaseapp.com",
-    projectId: "hungover",
-    storageBucket: "hungover.appspot.com",
-    messagingSenderId: "2920774608",
-    appId: "1:2920774608:web:5477fb43f084b90ea217d5"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID ,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
 
 })
 
