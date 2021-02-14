@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import app from '../configuration/fire_config';
+import app from '../configuration/firebase';
 import 'firebase/firestore';
 
 import {usePosition} from '../hooks/usePosition';
