@@ -78,11 +78,11 @@ export default function DonationForm() {
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
                 </label>
                 <br />
-                <label>
+                {/* <label>
                  Location:
                  <input type="location" name="location" required value={location} onChange={e =>  setLocation(e.target.value)} />
                 </label>
-                <br />
+                <br /> */}
                 <label>
                  Number of people invited:
                  <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
@@ -122,11 +122,11 @@ export default function DonationForm() {
              <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
             </label>
             <br />
-            <label>
+            {/* <label>
              Location:
              <input type="location" name="location" required value={location} onChange={e =>  setLocation(e.target.value)} />
             </label>
-            <br />
+            <br /> */}
             <label>
              Number of people invited:
              <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
