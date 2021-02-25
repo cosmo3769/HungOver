@@ -53,7 +53,8 @@ export default function DonationForm() {
             console.error("Error adding document: ", error);
         });
     }
-
+    
+    //Register Event
     function RegisterEvent(e) {
         e.preventDefault();
         const db = app.firestore();
