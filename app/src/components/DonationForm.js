@@ -10,15 +10,14 @@ export default function DonationForm() {
 
     const [donorName, setDonorName]=useState("");
     const [numberofInvitedGuests, setNumberofInvitedGuests]= useState();
-    const [numberOfGuestAttended, setNumberOfGuestAttended ]= useState();
+    const [numberOfGuestAttended, setNumberOfGuestAttended]= useState();
     const [numberOfPlates, setNumberOfPlates] = useState();
-    // const [location, setLocation]= useState();
     const [platesLeft, setPlatesLeft]= useState();
     const [typeOfFood, setTypeOfFood]= useState("");
     const [dateOfEvent, setDateOfEvent]= useState();
     const [startTimeOfEvent, setStartTimeOfEvent]= useState();
     const [endTimeOfEvent, setEndTimeOfEvent]= useState();
-    const [eventBefore, setEventBefore]=useState(false);
+    const [eventBefore, setEventBefore]= useState(false);
     const [show, setShow]= useState(false);
     
 
@@ -32,7 +31,7 @@ export default function DonationForm() {
     function DonateFood(e) {
         e.preventDefault();
         const db = app.firestore();
-        db.collection("FoodData").add({
+        db.collection("DonateFood").add({
             name: `${donorName}`,
             Location: ({
                  lat: `${latitude}`,
@@ -48,6 +47,7 @@ export default function DonationForm() {
         }).then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
             console.log("done");
+            window.location.reload();
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
@@ -57,7 +57,7 @@ export default function DonationForm() {
     function RegisterEvent(e) {
         e.preventDefault();
         const db = app.firestore();
-        db.collection("FoodData").add({
+        db.collection("RegisterEvent").add({
             name: `${donorName}`,
             Location: ({
                  lat: `${latitude}`,
@@ -74,28 +74,28 @@ export default function DonationForm() {
         }).then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
             console.log("done");
+            window.location.reload();
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
         });
     }
 
-    const handleSubmitAfterEvent = ()=>{
+    const handleModalAfterEvent = ()=>{
         setEventBefore(false)
         setShow(true)
     }
 
-    const handleSubmitBeforeEvent=()=>{
+    const handleModalBeforeEvent=()=>{
         setEventBefore(true)
         setShow(true)
     }
 
-
     return (
         <div>
 
-            <Button onClick={handleSubmitBeforeEvent}>Register before event</Button>
-            <Button onClick={handleSubmitAfterEvent}>Donate after the event</Button>
+            <Button onClick={handleModalBeforeEvent}>Register before event</Button>
+            <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
 
             <Modal show={show}>
 
@@ -106,11 +106,6 @@ export default function DonationForm() {
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
                 </label>
                 <br />
-                {/* <label>
-                 Location:
-                 <input type="location" name="location" required value={location} onChange={e =>  setLocation(e.target.value)} />
-                </label>
-                <br /> */}
                 <label>
                  Number of people invited:
                  <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
@@ -150,11 +145,6 @@ export default function DonationForm() {
              <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
             </label>
             <br />
-            {/* <label>
-             Location:
-             <input type="location" name="location" required value={location} onChange={e =>  setLocation(e.target.value)} />
-            </label>
-            <br /> */}
             <label>
              Number of people invited:
              <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
@@ -189,10 +179,8 @@ export default function DonationForm() {
             <br />
             <button type="submit" value="Submit">Submit</button>
         </form>
-
             }
             </Modal>
-            
         </div>
     )
 }
