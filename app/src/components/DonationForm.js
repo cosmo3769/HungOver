@@ -28,8 +28,8 @@ export default function DonationForm() {
         timestamp,
       } = usePosition();
 
-
-    function addFood(e) {
+    // Donate Food
+    function DonateFood(e) {
         e.preventDefault();
         const db = app.firestore();
         db.collection("FoodData").add({
@@ -54,11 +54,37 @@ export default function DonationForm() {
         });
     }
 
+    function RegisterEvent(e) {
+        e.preventDefault();
+        const db = app.firestore();
+        db.collection("FoodData").add({
+            name: `${donorName}`,
+            Location: ({
+                 lat: `${latitude}`,
+                 long: `${longitude}`,
+                 time: `${timestamp}`
+            }),
+            peopleInvited: `${numberofInvitedGuests}`,
+            date: `${dateOfEvent}`,
+            startTime: `${startTimeOfEvent}`,
+            endTime: `${endTimeOfEvent}`,
+            platesOrdered: `${numberOfPlates}`,
+            typeOfFood: `${typeOfFood}`
+        
+        }).then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            console.log("done");
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    }
+
     const handleSubmitAfterEvent = ()=>{
         setEventBefore(false)
         setShow(true)
     }
-    
+
     const handleSubmitBeforeEvent=()=>{
         setEventBefore(true)
         setShow(true)
@@ -74,7 +100,7 @@ export default function DonationForm() {
             <Modal show={show}>
 
             { !eventBefore ?
-            <form onSubmit={addFood}>
+            <form onSubmit={DonateFood}>
                 <label>
                  Name:
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
@@ -118,7 +144,7 @@ export default function DonationForm() {
 
             :  
             
-            <form onSubmit={addFood}>
+            <form onSubmit={RegisterEvent}>
             <label>
              Name:
              <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
