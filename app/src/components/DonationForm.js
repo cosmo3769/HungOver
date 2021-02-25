@@ -53,10 +53,12 @@ export default function DonationForm() {
             console.error("Error adding document: ", error);
         });
     }
+
     const handleSubmitAfterEvent = ()=>{
         setEventBefore(false)
         setShow(true)
     }
+    
     const handleSubmitBeforeEvent=()=>{
         setEventBefore(true)
         setShow(true)
