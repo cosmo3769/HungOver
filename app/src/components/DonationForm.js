@@ -12,7 +12,7 @@ export default function DonationForm() {
     const [numberofInvitedGuests, setNumberofInvitedGuests]= useState();
     const [numberOfGuestAttended, setNumberOfGuestAttended ]= useState();
     const [numberOfPlates, setNumberOfPlates] = useState();
-    const [location, setLocation]= useState();
+    // const [location, setLocation]= useState();
     const [platesLeft, setPlatesLeft]= useState();
     const [typeOfFood, setTypeOfFood]= useState("");
     const [dateOfEvent, setDateOfEvent]= useState();
