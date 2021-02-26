@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "2920774608",
+    "project_id": "hungover",
+    "storage_bucket": "hungover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2920774608:android:508c216764f391efa217d5",
+        "android_client_info": {
+          "package_name": "ml.saurav0001kumar.hungover_flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2920774608-qrrq62qb2i0v2jjte0thisapg7f40j7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZX6vlFkn3kn6h0GSF-9PZ_Z3pwWgPTNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2920774608-qrrq62qb2i0v2jjte0thisapg7f40j7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
