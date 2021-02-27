@@ -32,6 +32,7 @@ dependencies:
   firebase_auth: ^0.20.1
   flutter_signin_button: ^1.0.0
   google_sign_in:
+  geodesy: ^0.3.2
 
 dependency_overrides:
   firebase_auth:

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hungover_flutter_app/authentication/main.dart';
 import 'package:hungover_flutter_app/authentication/register_page.dart';
 import 'package:hungover_flutter_app/authentication/signin_page.dart';
+import 'package:hungover_flutter_app/home.dart';
 import 'package:location/location.dart';
 import 'get_location.dart';
 import 'listen_location.dart';
@@ -171,7 +173,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(10.0),
                   child: RaisedButton.icon(
                       onPressed: () {
+                        if(FirebaseAuth.instance.currentUser==null)
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>AuthTypeSelector() ));
+                        else
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen(FirebaseAuth.instance.currentUser) ));
                       },
                       icon: Icon(Icons.arrow_forward_ios),
                       label: Text("Proceed")),
