@@ -32,31 +32,32 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: true,
         actions: <Widget>[
 
-          Builder(builder: (BuildContext context) {
-
-            return FlatButton(
-              textColor: Theme.of(context).buttonColor,
-              onPressed: () async {
-                final User user = _auth.currentUser;
-                if (user == null) {
-                  Scaffold.of(context).showSnackBar(const SnackBar(
-                    content: Text('No one has signed in.'),
-                  ));
-                  return;
-                }
-                await _signOut();
-
-                final String uid = user.uid;
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('${user.email} has successfully signed out.'),
-                ));
-              },
-              child: const Text('Sign out'),
-            );
-
-          })
+          // Builder(builder: (BuildContext context) {
+          //
+          //   return FlatButton(
+          //     textColor: Theme.of(context).buttonColor,
+          //     onPressed: () async {
+          //       final User user = _auth.currentUser;
+          //       if (user == null) {
+          //         Scaffold.of(context).showSnackBar(const SnackBar(
+          //           content: Text('No one has signed in.'),
+          //         ));
+          //         return;
+          //       }
+          //       await _signOut();
+          //
+          //       final String uid = user.uid;
+          //       Scaffold.of(context).showSnackBar(SnackBar(
+          //         content: Text('${user.email} has successfully signed out.'),
+          //       ));
+          //     },
+          //     child: const Text('Sign out'),
+          //   );
+          //
+          // })
         ],
       ),
       body: Builder(builder: (BuildContext context) {
