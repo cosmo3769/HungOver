@@ -19,13 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'HungOver',
-      theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'productSans'),
-      home: MyHomePage()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'HungOver',
+        theme: ThemeData(
+            backgroundColor: Colors.white,
+            primarySwatch: Colors.indigo,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'productSans'),
+        home: MyHomePage());
   }
 }

@@ -8,7 +8,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
+import 'package:hungover_flutter_app/geoLocationLocator/main.dart';
 
+import '../hungOverLogo.dart';
 import './register_page.dart';
 import './signin_page.dart';
 
@@ -31,15 +33,20 @@ class AuthTypeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('HungOver'),
         centerTitle: true,
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ClipOval(child: HungOverLogo.hungOverLogo()),
+          ),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(15),
             alignment: Alignment.center,
             child: SignInButtonBuilder(
               icon: Icons.person_add,

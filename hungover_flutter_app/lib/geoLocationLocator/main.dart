@@ -1,14 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hungover_flutter_app/authentication/main.dart';
-import 'package:hungover_flutter_app/authentication/register_page.dart';
-import 'package:hungover_flutter_app/authentication/signin_page.dart';
 import 'package:hungover_flutter_app/home.dart';
+import 'package:hungover_flutter_app/hungOverLogo.dart';
 import 'package:location/location.dart';
-import 'get_location.dart';
-import 'listen_location.dart';
-import 'permission_status.dart';
-import 'service_enabled.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key key, this.title}) : super(key: key);
@@ -75,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "HungOver",
@@ -167,6 +163,11 @@ class _MyHomePageState extends State<MyHomePage> {
               _serviceEnabled == true)
             Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipOval(child: HungOverLogo.hungOverLogo()),
+                ),
+
                 Text("You are good to Go."),
                 Divider(height: 32),
                 Padding(
@@ -188,4 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+
+
 }
