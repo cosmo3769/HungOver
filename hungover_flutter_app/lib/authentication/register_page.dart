@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:location/location.dart';
+import 'package:toast/toast.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -28,8 +29,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController _org_nameTC = TextEditingController();
   final TextEditingController _org_phoneTC = TextEditingController();
-  final TextEditingController  _latTC= TextEditingController();
-  final TextEditingController  _longTC= TextEditingController();
 
   bool _success;
   String _userEmail = '';
@@ -157,21 +156,25 @@ class _RegisterPageState extends State<RegisterPage> {
                         icon: Icons.person_add,
                         backgroundColor: Colors.blueGrey,
                         onPressed: () async {
-                          if (_formKey.currentState.validate() && (org_latitude!=null || org_latitude!="--")) {
-                            await _register();
+                          if (_formKey.currentState.validate()) {
+                            if(org_latitude!="--" && org_longitude!="--") {
+                              await _register();
+                            }
+                            else
+                                toastAlert("Click on Get Current Location.");
                           }
                         },
                         text: 'Register',
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(_success == null
-                          ? ''
-                          : (_success
-                              ? 'Successfully registered:\n$_userEmail'
-                              : 'Registration failed'),style: TextStyle(fontSize: 18,color: Colors.red),),
-                    )
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   child: Text(_success == null
+                    //       ? ''
+                    //       : (_success
+                    //           ? 'Successfully registered:\n$_userEmail'
+                    //           : 'Registration failed'),style: TextStyle(fontSize: 18,color: Colors.red),),
+                    // )
                   ],
                 ),
               ),
@@ -215,11 +218,31 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         _success = true;
         _userEmail = user.email;
+        toastAlert("Successfully Registered !");
+        resetRegistrationFields();
 
       });
     } else {
       _success = false;
     }
+}
+//TOAST alert
+  void toastAlert(String message) {
+    Toast.show(message, context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+  }
+
+  //Reset All Fields
+void resetRegistrationFields()
+{
+  setState(() {
+    org_longitude="--";
+    org_latitude="--";
+    _emailController.clear();
+    _passwordController.clear();
+    _org_nameTC.clear();
+    _org_phoneTC.clear();
+  });
 }
 }
 

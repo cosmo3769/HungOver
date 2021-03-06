@@ -52,7 +52,7 @@ class AuthTypeSelector extends StatelessWidget {
               icon: Icons.person_add,
               backgroundColor: Colors.indigo,
               text: 'Registration',
-              onPressed: () => _pushPage(context, RegisterPage()),
+              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterPage())),
             ),
           ),
           Container(
