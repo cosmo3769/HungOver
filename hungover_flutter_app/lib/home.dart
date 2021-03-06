@@ -51,7 +51,8 @@ class HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
           actions: [
             Builder(builder: (BuildContext context) {
-              return FlatButton(
+              return FlatButton.icon(
+                icon: Icon(Icons.logout),
                 textColor: Theme.of(context).buttonColor,
                 onPressed: () async {
                   if (currentUser == null) {
@@ -72,7 +73,7 @@ class HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(builder: (context) => MyHomePage()));
                   });
                 },
-                child: const Text('Sign out'),
+                label: const Text('Sign out'),
               );
             })
           ],
@@ -172,24 +173,26 @@ class HomeScreenState extends State<HomeScreen> {
                                     document.data()['Location']['long']))) <=
                         50000) myAlert.showNotification();
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Card(
-                        elevation: 2,
-                        child: new Column(
-                          children: [
-                            if (Geodesy().distanceBetweenTwoGeoPoints(
-                                    orgLocation,
-                                    LatLng(
-                                        double.parse(
-                                            document.data()['Location']['lat']),
-                                        double.parse(document.data()['Location']
-                                            ['long']))) <=
-                                50000)
-                              Column(
-                                children: [
+                    return Column(
+                      children: [
+                        Container(),
+                        if (Geodesy().distanceBetweenTwoGeoPoints(
+                            orgLocation,
+                            LatLng(
+                                double.parse(
+                                    document.data()['Location']['lat']),
+                                double.parse(document.data()['Location']
+                                ['long']))) <=
+                            50000)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          child: Card(
+                            elevation: 2,
+                            child:  Column(
+                              children: [
+                                  notifyMe(),
                                   new Text(
-                                    "\nEvent Organiser: " +
+                                    "\nEvent Organiser : " +
                                         document
                                             .data()['name']
                                             .toString()
@@ -201,37 +204,50 @@ class HomeScreenState extends State<HomeScreen> {
                                     color: Colors.teal[700],
                                   ),
                                   new Text(
-                                    "Total Invitation: " +
+                                    "Total Invitation : " +
                                         document.data()['peopleInvited'],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   new Text(
-                                    "Total people arrived: " +
+                                    "Total people arrived : " +
                                         document.data()['peopleTurnedUp'],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   new Text(
-                                    "Total Plates Ordered: " +
+                                    "Total Plates Ordered : " +
                                         document.data()['platesOrdered'],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   new Text(
-                                    "Plates Remaining: " +
+                                    "Plates Remaining : " +
                                         document.data()['platesRemaining'],
-                                    style: TextStyle(fontSize: 14),
+                                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
                                   ),
                                   new Text(
-                                    "Food-Type: " +
+                                    "Food-Type : " +
                                         document.data()['typeOfFood'] +
                                         "\n",
                                     style: TextStyle(fontSize: 14),
                                   ),
-                                ],
-                              ),
-                            Container()
-                          ],
+                                  SizedBox(height: 5,),
+                                  new Text(
+                                    "Distance : About " +
+                                        (Geodesy().distanceBetweenTwoGeoPoints(
+                                            orgLocation,
+                                            LatLng(
+                                                double.parse(
+                                                    document.data()['Location']['lat']),
+                                                double.parse(
+                                                    document.data()['Location']['long'])))/1000).toString().split(".")[0] +
+                                        " K.M.\n",
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                Container()
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   }).toList(),
                 );
@@ -245,7 +261,7 @@ class HomeScreenState extends State<HomeScreen> {
                 color: Colors.red[600]),
           )),
           SizedBox(
-            height: 25,
+            height: 20,
           ),
           //ALL OTHER EVENTS
           Padding(
@@ -255,7 +271,7 @@ class HomeScreenState extends State<HomeScreen> {
                     elevation: 3,
                     backgroundColor: Colors.white,
                     label: Text(
-                      "All Other Events",
+                      "Other Events",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -285,53 +301,83 @@ class HomeScreenState extends State<HomeScreen> {
                 return new Column(
                   // padding: EdgeInsets.symmetric(horizontal:5,vertical: 5),
                   children: snapshot.data.docs.map((DocumentSnapshot document) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Card(
-                        elevation: 2,
-                        child: new Column(
-                          children: [
-                            new Text(
-                              "\nEvent Organiser: " +
-                                  document
-                                      .data()['name']
-                                      .toString()
-                                      .toUpperCase(),
-                              style: TextStyle(fontSize: 16),
+                    return Column(
+                      children: [
+                        Container(),
+                        if (Geodesy().distanceBetweenTwoGeoPoints(
+                            orgLocation,
+                            LatLng(
+                                double.parse(
+                                    document.data()['Location']['lat']),
+                                double.parse(document.data()['Location']
+                                ['long']))) >
+                            50000)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          child: Card(
+                            elevation: 2,
+
+                            child:
+
+                            new Column(
+                              children: [
+
+                                new Text(
+                                  "\nEvent Organiser : " +
+                                      document
+                                          .data()['name']
+                                          .toString()
+                                          .toUpperCase(),
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Divider(
+                                  height: 20,
+                                  color: Colors.amber[700],
+                                ),
+                                new Text(
+                                  "Total Invitation : " +
+                                      document.data()['peopleInvited'],
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                new Text(
+                                  "Total people arrived : " +
+                                      document.data()['peopleTurnedUp'],
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                new Text(
+                                  "Total Plates Ordered : " +
+                                      document.data()['platesOrdered'],
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                new Text(
+                                  "Plates Remaining : " +
+                                      document.data()['platesRemaining'],
+                                  style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
+                                ),
+                                new Text(
+                                  "Food-Type : " +
+                                      document.data()['typeOfFood'] +
+                                      "\n",
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                SizedBox(height: 5,),
+                                new Text(
+                                  "Distance : About " +
+                                      (Geodesy().distanceBetweenTwoGeoPoints(
+                                          orgLocation,
+                                          LatLng(
+                                              double.parse(
+                                                  document.data()['Location']['lat']),
+                                              double.parse(
+                                                  document.data()['Location']['long'])))/1000).toString().split(".")[0] +
+                                      " K.M.\n",
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ],
                             ),
-                            Divider(
-                              height: 20,
-                              color: Colors.amber[800],
-                            ),
-                            new Text(
-                              "Total Invitation: " +
-                                  document.data()['peopleInvited'],
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            new Text(
-                              "Total people arrived: " +
-                                  document.data()['peopleTurnedUp'],
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            new Text(
-                              "Total Plates Ordered: " +
-                                  document.data()['platesOrdered'],
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            new Text(
-                              "Plates Remaining: " +
-                                  document.data()['platesRemaining'],
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            new Text(
-                              "Food-Type: " +
-                                  document.data()['typeOfFood'] +
-                                  "\n",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   }).toList(),
                 );
@@ -359,5 +405,10 @@ class HomeScreenState extends State<HomeScreen> {
         orgLocation = LatLng(double.parse(x1), double.parse(x2));
       });
     });
+  }
+  Widget notifyMe()
+  {
+    myAlert.showNotification();
+    return Container();
   }
 }

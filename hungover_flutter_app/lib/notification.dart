@@ -25,7 +25,7 @@ class NotifyAlertState extends State<NotifyAlert> {
     // TODO: implement initState
     super.initState();
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var android = new AndroidInitializationSettings('@mipmap/launcher_icon');
     var iOS = new IOSInitializationSettings();
     var initSetttings = new InitializationSettings(android,iOS);
     flutterLocalNotificationsPlugin.initialize(initSetttings,
@@ -56,6 +56,6 @@ class NotifyAlertState extends State<NotifyAlert> {
     var platform = new NotificationDetails(android,iOS);
     await flutterLocalNotificationsPlugin.show(
         0, 'New Event in your Area.', 'Open HungOver app to view more.', platform,
-        payload: 'Open HungOver app & login to view more details.');
+        payload: 'Near-by event found. Open HungOver app to view more details.');
   }
 }
