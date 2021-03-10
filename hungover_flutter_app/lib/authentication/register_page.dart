@@ -29,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController _org_nameTC = TextEditingController();
   final TextEditingController _org_phoneTC = TextEditingController();
+  final TextEditingController _org_plateCapacityTC = TextEditingController();
 
   bool _success;
   String _userEmail = '';
@@ -122,6 +123,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         return null;
                       },
                     ),
+                    TextFormField(
+                      controller: _org_plateCapacityTC,
+                      decoration: const InputDecoration(labelText: "Organisation's Plate Capacity"),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
                     Divider(height: 25,),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -199,7 +210,8 @@ class _RegisterPageState extends State<RegisterPage> {
       'latitude': org_latitude, //
       'longitude': org_longitude ,
       'org_name': _org_nameTC.text,
-      'org_phone':_org_phoneTC.text
+      'org_phone':_org_phoneTC.text,
+      'plateCapacity': _org_plateCapacityTC.text
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
@@ -242,6 +254,7 @@ void resetRegistrationFields()
     _passwordController.clear();
     _org_nameTC.clear();
     _org_phoneTC.clear();
+    _org_plateCapacityTC.clear();
   });
 }
 }
