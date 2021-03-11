@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
+
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +13,8 @@ import main from '../Images/HungoverMain1.png';
 import logo from '../Images/logo.png';
 import registerimg from '../Images/registernow.jpg';
 import donateimg from '../Images/food-donations.jpg';
+
+import '../styles/donation-style.css';
 
 import {usePosition} from '../hooks/usePosition';
 
@@ -108,8 +111,7 @@ export default function DonationForm() {
     }
 
     return (
-        <div>
-            <div>
+        <div className="main-container">
             <Navbar bg="light" variant="light" expand="lg">
                 <Navbar.Brand href="#home">
                     <img 
@@ -138,13 +140,19 @@ export default function DonationForm() {
                         alt="some poor childrens with company name" 
                         width="100%"/>
                 </div>
-            </div>
 
             <div className="register">
-                <Button onClick={handleModalBeforeEvent}>Register before event</Button>{' '}
+                <div className="register-img">
+                    <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/>
+                    <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
+                </div>
             </div>
+
             <div className="donate">
-                <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
+                <div className="donate-img">
+                    <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/>
+                    <Button onClick={handleModalAfterEvent}>Donate</Button>
+                </div>
             </div>
             
             <Modal show={show}>
@@ -256,5 +264,6 @@ export default function DonationForm() {
             
             </Modal>
         </div>
+
     )
 }
