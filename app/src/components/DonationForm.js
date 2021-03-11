@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import app from '../configuration/firebase';
 import 'firebase/firestore';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import main from '../Images/HungoverMain1.png';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {usePosition} from '../hooks/usePosition';
 
@@ -11,6 +15,8 @@ export default function DonationForm() {
     const [donorName, setDonorName]=useState("");
     const [numberofInvitedGuests, setNumberofInvitedGuests]= useState();
     const [numberOfGuestAttended, setNumberOfGuestAttended]= useState();
+    const [contactNumber, setContactNumber]= useState();
+    const [email, setEmail]= useState();
     const [numberOfPlates, setNumberOfPlates] = useState();
     const [platesLeft, setPlatesLeft]= useState();
     const [typeOfFood, setTypeOfFood]= useState("");
@@ -33,6 +39,8 @@ export default function DonationForm() {
         const db = app.firestore();
         db.collection("DonateFood").add({
             name: `${donorName}`,
+            phone: contactNumber,
+            email: email,
             Location: ({
                  lat: `${latitude}`,
                  long: `${longitude}`,
@@ -60,16 +68,18 @@ export default function DonationForm() {
         const db = app.firestore();
         db.collection("RegisterEvent").add({
             name: `${donorName}`,
+            phone: contactNumber,
+            email: email,
             Location: ({
                  lat: `${latitude}`,
                  long: `${longitude}`,
                  time: `${timestamp}`
             }),
-            peopleInvited: `${numberofInvitedGuests}`,
+            peopleInvited: numberofInvitedGuests,
             date: `${dateOfEvent}`,
             startTime: `${startTimeOfEvent}`,
             endTime: `${endTimeOfEvent}`,
-            platesOrdered: `${numberOfPlates}`,
+            platesOrdered: numberOfPlates,
             typeOfFood: `${typeOfFood}`
         
         }).then((docRef) => {
@@ -94,10 +104,25 @@ export default function DonationForm() {
 
     return (
         <div>
+            <div>
+            <Navbar bg="light" variant="light">
+                <Nav className="mr-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#about">About us</Nav.Link>
+                <Nav.Link href="#donate">Donate</Nav.Link>
+                <Nav.Link href="#contactUs">Contact Us</Nav.Link>
+                </Nav>
+                
+            </Navbar>
+                <div width="100%">
 
-            <Button onClick={handleModalBeforeEvent}>Register before event</Button>
+                    <img src={main} alt="some poor childrens with company name" width="100%"/>
+                </div>
+            </div>
+            <div id="donate">
+            <Button onClick={handleModalBeforeEvent}>Register before event</Button>{' '}
             <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
-
+            </div>
             <Modal show={show}>
 
             { !eventBefore ?
@@ -105,6 +130,16 @@ export default function DonationForm() {
                 <label>
                  Name:
                  <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                    Email:
+                    <input type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                </label>
+                <br />
+                <label>
+                    Contact Number:
+                    <input type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
                 </label>
                 <br />
                 <label>
@@ -130,12 +165,13 @@ export default function DonationForm() {
                 <label>
                  Type of food:
                  <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-                 <label htmlFor="non-veg">Non-Veg</label><br />
+                 <label htmlFor="non-veg">Non-Veg</label>
                  <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
                  <label htmlFor="veg">Veg</label><br />
                 </label>
                 <br />
-                <button type="submit" value="Submit">Submit</button>
+                <Button type="submit" value="Submit">Submit</Button>{' '}
+                <Button onClick={e => setShow(false)}>Close</Button>
             </form>
 
             :  
@@ -144,6 +180,16 @@ export default function DonationForm() {
             <label>
              Name:
              <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+            </label>
+            <br />
+            <label>
+                 Email:
+                <input type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+             </label>
+             <br />
+            <label>
+                Contact Number:
+                <input type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
             </label>
             <br />
             <label>
@@ -173,14 +219,17 @@ export default function DonationForm() {
             <label>
              Type of food:
              <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-             <label htmlFor="non-veg">Non-Veg</label><br />
+             <label htmlFor="non-veg">Non-Veg</label>
              <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
              <label htmlFor="veg">Veg</label><br />
             </label>
             <br />
-            <button type="submit" value="Submit">Submit</button>
+            <Button type="submit" value="Submit">Submit</Button>{' '}
+            <Button onClick={e => setShow(false)}>Close</Button>
         </form>
+        
             }
+            
             </Modal>
         </div>
     )
