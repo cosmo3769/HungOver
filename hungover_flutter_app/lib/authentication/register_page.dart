@@ -211,7 +211,8 @@ class _RegisterPageState extends State<RegisterPage> {
       'longitude': org_longitude ,
       'org_name': _org_nameTC.text,
       'org_phone':_org_phoneTC.text,
-      'plateCapacity': _org_plateCapacityTC.text
+      'plateCapacity': _org_plateCapacityTC.text,
+      'platesOrdered': "0"
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
