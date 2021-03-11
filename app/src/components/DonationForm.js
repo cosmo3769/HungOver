@@ -3,10 +3,15 @@ import app from '../configuration/firebase';
 import 'firebase/firestore';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import main from '../Images/HungoverMain1.png';
+
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+import main from '../Images/HungoverMain1.png';
+import logo from '../Images/logo.png';
+import registerimg from '../Images/registernow.jpg';
+import donateimg from '../Images/food-donations.jpg';
 
 import {usePosition} from '../hooks/usePosition';
 
@@ -105,24 +110,43 @@ export default function DonationForm() {
     return (
         <div>
             <div>
-            <Navbar bg="light" variant="light">
-                <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#about">About us</Nav.Link>
-                <Nav.Link href="#donate">Donate</Nav.Link>
-                <Nav.Link href="#contactUs">Contact Us</Nav.Link>
-                </Nav>
-                
+            <Navbar bg="light" variant="light" expand="lg">
+                <Navbar.Brand href="#home">
+                    <img 
+                        src={logo} 
+                        width="30" 
+                        height="30" 
+                        className="d-inline-block align-top"
+                        alt="logo"
+                    />{' '}
+                    HungOver
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="#about">About us</Nav.Link>
+                        <Nav.Link href="#register">Register</Nav.Link>
+                        <Nav.Link href="#donate">Donate</Nav.Link>
+                        <Nav.Link href="#contactUs">Contact Us</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
-                <div width="100%">
-
-                    <img src={main} alt="some poor childrens with company name" width="100%"/>
+                <div className="hungoverhomepageimage" width="100%">
+                    <img 
+                        src={main} 
+                        alt="some poor childrens with company name" 
+                        width="100%"/>
                 </div>
             </div>
-            <div id="donate">
-            <Button onClick={handleModalBeforeEvent}>Register before event</Button>{' '}
-            <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
+
+            <div className="register">
+                <Button onClick={handleModalBeforeEvent}>Register before event</Button>{' '}
             </div>
+            <div className="donate">
+                <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
+            </div>
+            
             <Modal show={show}>
 
             { !eventBefore ?
