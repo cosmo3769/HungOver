@@ -3,6 +3,8 @@ import app from '../configuration/firebase';
 import 'firebase/firestore';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+// import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import Form from 'react-bootstrap/Form';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -12,6 +14,8 @@ import main from '../Images/HungoverMain1.png';
 import logo from '../Images/logo.png';
 import registerimg from '../Images/registernow.jpg';
 import donateimg from '../Images/food-donations.jpg';
+
+import '../styles/donation-style.css';
 
 import {usePosition} from '../hooks/usePosition';
 
@@ -108,8 +112,7 @@ export default function DonationForm() {
     }
 
     return (
-        <div>
-            <div>
+        <div className="main-container">
             <Navbar bg="light" variant="light" expand="lg">
                 <Navbar.Brand href="#home">
                     <img 
@@ -138,123 +141,134 @@ export default function DonationForm() {
                         alt="some poor childrens with company name" 
                         width="100%"/>
                 </div>
-            </div>
 
             <div className="register">
-                <Button onClick={handleModalBeforeEvent}>Register before event</Button>{' '}
+                <div className="register-img">
+                    <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/>
+                    <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
+                </div>
             </div>
+
             <div className="donate">
-                <Button onClick={handleModalAfterEvent}>Donate after the event</Button>
+                <div className="donate-img">
+                    <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/>
+                    <Button onClick={handleModalAfterEvent}>Donate</Button>
+                </div>
             </div>
             
             <Modal show={show}>
 
             { !eventBefore ?
             <form onSubmit={DonateFood}>
-                <label>
-                 Name:
-                 <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Email:
-                    <input type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
-                </label>
-                <br />
-                <label>
-                    Contact Number:
-                    <input type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                 Number of people invited:
-                 <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
-                </label>
-                <br />
-                <label>
-                 Number of people that turned up:
-                 <input type="number" name="peopleTurnedUp" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
-                </label>
-                <br />
-                <label>
-                 Number of plates ordered:
-                 <input type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
-                </label>
-                <br />
-                <label>
-                 Number of plates remaining:
-                 <input type="number" name="platesRemaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
-                </label>
-                <br />
-                <label>
-                 Type of food:
-                 <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-                 <label htmlFor="non-veg">Non-Veg</label>
-                 <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
-                 <label htmlFor="veg">Veg</label><br />
-                </label>
-                <br />
-                <Button type="submit" value="Submit">Submit</Button>{' '}
-                <Button onClick={e => setShow(false)}>Close</Button>
+                <Modal.Dialog>
+                    <Modal.Header>
+                        <Modal.Title>Donate</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Label>Name </Form.Label>
+                            <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email </Form.Label>
+                            <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Contact Number </Form.Label>
+                            <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of people invited </Form.Label>
+                            <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of people that turned up </Form.Label>
+                            <Form.Control type="number" name="peopleTurnedUp" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of plates ordered </Form.Label>
+                            <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of plates remaining </Form.Label>
+                            <Form.Control type="number" name="platesRemaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Type of food </Form.Label>
+                            <br />
+                            <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
+                            <label htmlFor="non-veg">Non-Veg</label>
+                            <br />
+                            <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
+                            <label htmlFor="veg">Veg</label>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button top="100px" variant="primary" type="submit" value="Submit">Submit</Button>{' '}
+                        <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
             </form>
 
             :  
             
             <form onSubmit={RegisterEvent}>
-            <label>
-             Name:
-             <input type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
-            </label>
-            <br />
-            <label>
-                 Email:
-                <input type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
-             </label>
-             <br />
-            <label>
-                Contact Number:
-                <input type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
-            </label>
-            <br />
-            <label>
-             Number of people invited:
-             <input type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
-            </label>
-            <br />
-            <label>
-             Date of the event:
-             <input type="date" name="date" required value={dateOfEvent} onChange={e => setDateOfEvent(e.target.value)}/>
-            </label>
-            <br />
-            <label>
-                Start Time:
-                <input type="time" name="startTime" required value={startTimeOfEvent} onChange={e => setStartTimeOfEvent(e.target.value)} />
-
-                End Time:
-                <input type="time" name="endTime" required value={endTimeOfEvent} onChange={e => setEndTimeOfEvent(e.target.value)} />
-                
-            </label>
-            <br />
-            <label>
-             Number of plates ordered:
-             <input type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
-            </label>
-            <br />
-            <label>
-             Type of food:
-             <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-             <label htmlFor="non-veg">Non-Veg</label>
-             <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
-             <label htmlFor="veg">Veg</label><br />
-            </label>
-            <br />
-            <Button type="submit" value="Submit">Submit</Button>{' '}
-            <Button onClick={e => setShow(false)}>Close</Button>
+                <Modal.Dialog>
+                    <Modal.Header>
+                        <Modal.Title>Register</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Contact Number </Form.Label>
+                            <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of people invited </Form.Label>
+                            <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Date of the event</Form.Label>
+                            <Form.Control type="date" name="date" required value={dateOfEvent} onChange={e => setDateOfEvent(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Start Time </Form.Label>
+                            <Form.Control type="time" name="startTime" required value={startTimeOfEvent} onChange={e => setStartTimeOfEvent(e.target.value)} />
+                            <Form.Label>End Time </Form.Label>
+                            <Form.Control type="time" name="endTime" required value={endTimeOfEvent} onChange={e => setEndTimeOfEvent(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Number of plates ordered </Form.Label>
+                            <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Type of food </Form.Label>
+                            <br />
+                            <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
+                            <label htmlFor="non-veg">Non-Veg</label>
+                            <br />
+                            <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
+                            <label htmlFor="veg">Veg</label>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" type="submit" value="Submit">Submit</Button>{' '}
+                        <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
+                    </Modal.Footer>
+            </Modal.Dialog>
         </form>
         
             }
             
             </Modal>
         </div>
+
     )
 }
