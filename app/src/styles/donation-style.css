@@ -1,16 +1,30 @@
-/* .main-container{
-    width:100%;
-    height:100%;
-    padding: 0% 0% 0% 0%;
-    margin: 0% 0% 0% 0%;
-} */
 
-.main-container {
-    background-color: grey;
-}
 
 /* Button {
     position: relative;
     left: 120px;
     bottom: 70px;
 } */
+.donate, .register{
+    text-align: center;
+    margin: 1%;
+    border-style: solid;
+}
+.register{
+    border-style: solid;
+    /* border-right: 1px; */
+}
+Button{
+ margin: 2%;
+}
+.donate{
+    background-image: url('../Images/food-donations.jpg');
+    background-size: contain;
+    /* filter: blur(8px); */
+}
+.register{
+    background-image: url('../Images/registernow.jpg');
+    background-size: contain;
+    /* filter: blur(8px); */
+
+}
