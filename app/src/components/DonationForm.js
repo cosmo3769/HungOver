@@ -15,8 +15,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import main from '../Images/HungoverMain1.png';
 import logo from '../Images/logo.png';
-import registerimg from '../Images/registernow.jpg';
-import donateimg from '../Images/food-donations.jpg';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons" 
+
 
 import '../styles/donation-style.css';
 
@@ -153,34 +154,36 @@ export default function DonationForm() {
                                     <h4 className="heading">Register your Event</h4>
                                     <h6>so that we can help you in saving your food by donating it to the needy people</h6>
                                     <br />
-                                    <p className="instructional-content"> If you got your event planned then register the event beforehand, so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                    <p className="instructional-content">If you got your event planned then register the event beforehand, so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
                                 </div>
                                     {/* <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/> */}
                                     <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
                                 
                             </div>
                         </Col>
-                        <Col>
-                            <div className="donate">
-                                <div className="donate-instruction">
-                                   <h4 className="heading">Donate your Food</h4>
-                                   <h6>To help the needy people and reduce the world's dumbest problem i.e. Hunger</h6>
-                                   <br />
-                                   <p className="instructional-content"> If you have an ongoing event and you worry about the food that is going to waste. Fill this form so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div className="donate">
+                                    <div className="donate-instruction">
+                                    <h4 className="heading">Donate your Food</h4>
+                                    <h6>To help the needy people and reduce the world's dumbest problem i.e. Hunger</h6>
+                                    <br />
+                                    <p className="instructional-content">If you have an ongoing event and you worry about the food that is going to waste.Fill this form so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                    </div>
+                                        {/* <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/> */}
+                                        <Button onClick={handleModalAfterEvent}>Donate</Button>
+                                
                                 </div>
-                                    {/* <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/> */}
-                                    <Button onClick={handleModalAfterEvent}>Donate</Button>
-                               
-                            </div>
-                        </Col>
-                    </Row>
+                            </Col>
+                       </Row>
                 </Container>
                 
                 <Modal show={show}>
 
                 { !eventBefore ?
                 <form onSubmit={DonateFood}>
-                    <Modal.Dialog>
+                    {/* <Modal.Dialog> */}
                         <Modal.Header>
                             <Modal.Title>Donate</Modal.Title>
                         </Modal.Header>
@@ -227,13 +230,13 @@ export default function DonationForm() {
                             <Button top="100px" variant="primary" type="submit" value="Submit">Submit</Button>{' '}
                             <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
                         </Modal.Footer>
-                    </Modal.Dialog>
+                    {/* </Modal.Dialog> */}
                 </form>
 
                 :  
                 
                 <form onSubmit={RegisterEvent}>
-                    <Modal.Dialog>
+                    {/* <Modal.Dialog> */}
                         <Modal.Header>
                             <Modal.Title>Register</Modal.Title>
                         </Modal.Header>
@@ -282,13 +285,42 @@ export default function DonationForm() {
                             <Button variant="primary" type="submit" value="Submit">Submit</Button>{' '}
                             <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
                         </Modal.Footer>
-                </Modal.Dialog>
+                {/* </Modal.Dialog> */}
             </form>
             
                 }
                 
                 </Modal>
             {/* </div> */}
+            <footer id="contact-us">
+                <Container>
+                    <Row>
+                        <Col className="navigation">
+                            <Nav className="mr-auto">
+                                <Nav.Link className="foot-nav" href="#home">Home</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#about">About us</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#register">Register</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#donate">Donate</Nav.Link>
+                                {/* <Nav.Link className="foot-nav" href="#contactUs">Contact Us</Nav.Link> */}
+                            </Nav>
+                        </Col>
+                        <Col className="contact-details">
+                            <h5> Hungover</h5>
+                            <p><b>mail your querries at :-</b> hungover2954@gmail.com</p>
+                        </Col>
+                        <Col className="social-handles">
+                            <h6>Let's get Social</h6>
+                           <Nav>
+                           <Nav.Link className="social-icons"><FontAwesomeIcon icon={faFacebook} size="lg" /> </Nav.Link>
+                            <Nav.Link className="social-icons"><FontAwesomeIcon icon={faInstagram} size="lg" /> </Nav.Link>
+                            <Nav.Link className="social-icons"> </Nav.Link>
+                           </Nav>
+
+                        </Col>
+                    </Row>
+                </Container>
+
+            </footer>
        </>
     )
 }
