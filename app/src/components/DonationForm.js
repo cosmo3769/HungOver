@@ -5,6 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 // import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -12,8 +15,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import main from '../Images/HungoverMain1.png';
 import logo from '../Images/logo.png';
-import registerimg from '../Images/registernow.jpg';
-import donateimg from '../Images/food-donations.jpg';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons" 
+
 
 import '../styles/donation-style.css';
 
@@ -112,163 +116,211 @@ export default function DonationForm() {
     }
 
     return (
-        <div className="main-container">
-            <Navbar bg="light" variant="light" expand="lg">
-                <Navbar.Brand href="#home">
-                    <img 
-                        src={logo} 
-                        width="30" 
-                        height="30" 
-                        className="d-inline-block align-top"
-                        alt="logo"
-                    />{' '}
-                    HungOver
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#about">About us</Nav.Link>
-                        <Nav.Link href="#register">Register</Nav.Link>
-                        <Nav.Link href="#donate">Donate</Nav.Link>
-                        <Nav.Link href="#contactUs">Contact Us</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-                <div className="hungoverhomepageimage" width="100%">
-                    <img 
-                        src={main} 
-                        alt="some poor childrens with company name" 
-                        width="100%"/>
-                </div>
+        <>
+            {/* <div className="main-container"> */}
+                <Navbar bg="light" variant="light" expand="lg">
+                    <Navbar.Brand href="#home">
+                        <img 
+                            src={logo} 
+                            width="30" 
+                            height="30" 
+                            className="d-inline-block align-top"
+                            alt="logo"
+                        />{' '}
+                        HungOver
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#about">About us</Nav.Link>
+                            <Nav.Link href="#register">Register</Nav.Link>
+                            <Nav.Link href="#donate">Donate</Nav.Link>
+                            <Nav.Link href="#contactUs">Contact Us</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                    <div className="hungoverhomepageimage" width="100%">
+                        <img 
+                            src={main} 
+                            alt="some poor childrens with company name" 
+                            width="100%"/>
+                    </div>
+                <Container>
+                    <Row>
+                        <Col>
+                            <div className="register">
+                                <div className="register-instruction">
+                                    <h4 className="heading">Register your Event</h4>
+                                    <h6>so that we can help you in saving your food by donating it to the needy people</h6>
+                                    <br />
+                                    <p className="instructional-content">If you got your event planned then register the event beforehand, so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                </div>
+                                    {/* <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/> */}
+                                    <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
+                                
+                            </div>
+                        </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div className="donate">
+                                    <div className="donate-instruction">
+                                    <h4 className="heading">Donate your Food</h4>
+                                    <h6>To help the needy people and reduce the world's dumbest problem i.e. Hunger</h6>
+                                    <br />
+                                    <p className="instructional-content">If you have an ongoing event and you worry about the food that is going to waste.Fill this form so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                    </div>
+                                        {/* <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/> */}
+                                        <Button onClick={handleModalAfterEvent}>Donate</Button>
+                                
+                                </div>
+                            </Col>
+                       </Row>
+                </Container>
+                
+                <Modal show={show}>
 
-            <div className="register">
-                <div className="register-img">
-                    <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/>
-                    <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
-                </div>
-            </div>
+                { !eventBefore ?
+                <form onSubmit={DonateFood}>
+                    {/* <Modal.Dialog> */}
+                        <Modal.Header>
+                            <Modal.Title>Donate</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form.Group>
+                                <Form.Label>Name </Form.Label>
+                                <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Email </Form.Label>
+                                <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Contact Number </Form.Label>
+                                <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of people invited </Form.Label>
+                                <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of people that turned up </Form.Label>
+                                <Form.Control type="number" name="peopleTurnedUp" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of plates ordered </Form.Label>
+                                <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of plates remaining </Form.Label>
+                                <Form.Control type="number" name="platesRemaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Type of food </Form.Label>
+                                <br />
+                                <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
+                                <label htmlFor="non-veg">Non-Veg</label>
+                                <br />
+                                <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
+                                <label htmlFor="veg">Veg</label>
+                            </Form.Group>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button top="100px" variant="primary" type="submit" value="Submit">Submit</Button>{' '}
+                            <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
+                        </Modal.Footer>
+                    {/* </Modal.Dialog> */}
+                </form>
 
-            <div className="donate">
-                <div className="donate-img">
-                    <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/>
-                    <Button onClick={handleModalAfterEvent}>Donate</Button>
-                </div>
-            </div>
-            
-            <Modal show={show}>
-
-            { !eventBefore ?
-            <form onSubmit={DonateFood}>
-                <Modal.Dialog>
-                    <Modal.Header>
-                        <Modal.Title>Donate</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form.Group>
-                            <Form.Label>Name </Form.Label>
-                            <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email </Form.Label>
-                            <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Contact Number </Form.Label>
-                            <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of people invited </Form.Label>
-                            <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of people that turned up </Form.Label>
-                            <Form.Control type="number" name="peopleTurnedUp" required value={numberOfGuestAttended} onChange={e => setNumberOfGuestAttended(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of plates ordered </Form.Label>
-                            <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of plates remaining </Form.Label>
-                            <Form.Control type="number" name="platesRemaining" required value={platesLeft} onChange={e => setPlatesLeft(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Type of food </Form.Label>
-                            <br />
-                            <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-                            <label htmlFor="non-veg">Non-Veg</label>
-                            <br />
-                            <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
-                            <label htmlFor="veg">Veg</label>
-                        </Form.Group>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button top="100px" variant="primary" type="submit" value="Submit">Submit</Button>{' '}
-                        <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
-                    </Modal.Footer>
-                </Modal.Dialog>
+                :  
+                
+                <form onSubmit={RegisterEvent}>
+                    {/* <Modal.Dialog> */}
+                        <Modal.Header>
+                            <Modal.Title>Register</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form.Group>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Contact Number </Form.Label>
+                                <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of people invited </Form.Label>
+                                <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Date of the event</Form.Label>
+                                <Form.Control type="date" name="date" required value={dateOfEvent} onChange={e => setDateOfEvent(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Start Time </Form.Label>
+                                <Form.Control type="time" name="startTime" required value={startTimeOfEvent} onChange={e => setStartTimeOfEvent(e.target.value)} />
+                                <Form.Label>End Time </Form.Label>
+                                <Form.Control type="time" name="endTime" required value={endTimeOfEvent} onChange={e => setEndTimeOfEvent(e.target.value)} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Number of plates ordered </Form.Label>
+                                <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Type of food </Form.Label>
+                                <br />
+                                <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
+                                <label htmlFor="non-veg">Non-Veg</label>
+                                <br />
+                                <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
+                                <label htmlFor="veg">Veg</label>
+                            </Form.Group>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary" type="submit" value="Submit">Submit</Button>{' '}
+                            <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
+                        </Modal.Footer>
+                {/* </Modal.Dialog> */}
             </form>
-
-            :  
             
-            <form onSubmit={RegisterEvent}>
-                <Modal.Dialog>
-                    <Modal.Header>
-                        <Modal.Title>Register</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" name="name" required value={donorName} onChange={e => setDonorName(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" required value={email} onChange={e => setEmail(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Contact Number </Form.Label>
-                            <Form.Control type="tel" name="contact" required value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of people invited </Form.Label>
-                            <Form.Control type="number" name="peopleInvited" required value={numberofInvitedGuests} onChange={e => setNumberofInvitedGuests(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Date of the event</Form.Label>
-                            <Form.Control type="date" name="date" required value={dateOfEvent} onChange={e => setDateOfEvent(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Start Time </Form.Label>
-                            <Form.Control type="time" name="startTime" required value={startTimeOfEvent} onChange={e => setStartTimeOfEvent(e.target.value)} />
-                            <Form.Label>End Time </Form.Label>
-                            <Form.Control type="time" name="endTime" required value={endTimeOfEvent} onChange={e => setEndTimeOfEvent(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Number of plates ordered </Form.Label>
-                            <Form.Control type="number" name="platesOrdered" required value={numberOfPlates} onChange={e => setNumberOfPlates(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Type of food </Form.Label>
-                            <br />
-                            <input type="radio" id="non-veg" name="typeOfFood" value="non-veg" checked={typeOfFood==="non-veg"}  onChange={()=> setTypeOfFood('non-veg')}/>
-                            <label htmlFor="non-veg">Non-Veg</label>
-                            <br />
-                            <input type="radio" id="veg" name="typeofFood" value="veg" checked={typeOfFood==="veg"} onChange={() => setTypeOfFood("veg")} />
-                            <label htmlFor="veg">Veg</label>
-                        </Form.Group>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" type="submit" value="Submit">Submit</Button>{' '}
-                        <Button variant="secondary" onClick={e => setShow(false)}>Close</Button>
-                    </Modal.Footer>
-            </Modal.Dialog>
-        </form>
-        
-            }
-            
-            </Modal>
-        </div>
+                }
+                
+                </Modal>
+            {/* </div> */}
+            <footer id="contact-us">
+                <Container>
+                    <Row>
+                        <Col className="navigation">
+                            <Nav className="mr-auto">
+                                <Nav.Link className="foot-nav" href="#home">Home</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#about">About us</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#register">Register</Nav.Link>
+                                <Nav.Link className="foot-nav" href="#donate">Donate</Nav.Link>
+                                {/* <Nav.Link className="foot-nav" href="#contactUs">Contact Us</Nav.Link> */}
+                            </Nav>
+                        </Col>
+                        <Col className="contact-details">
+                            <h5> Hungover</h5>
+                            <p><b>mail your querries at :-</b> hungover2954@gmail.com</p>
+                        </Col>
+                        <Col className="social-handles">
+                            <h6>Let's get Social</h6>
+                           <Nav>
+                           <Nav.Link className="social-icons"><FontAwesomeIcon icon={faFacebook} size="lg" /> </Nav.Link>
+                            <Nav.Link className="social-icons"><FontAwesomeIcon icon={faInstagram} size="lg" /> </Nav.Link>
+                            <Nav.Link className="social-icons"> </Nav.Link>
+                           </Nav>
 
+                        </Col>
+                    </Row>
+                </Container>
+
+            </footer>
+       </>
     )
 }
