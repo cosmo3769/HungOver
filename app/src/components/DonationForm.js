@@ -154,7 +154,7 @@ export default function DonationForm() {
                                     <h4 className="heading">Register your Event</h4>
                                     <h6>so that we can help you in saving your food by donating it to the needy people</h6>
                                     <br />
-                                    <p className="instructional-content">If you got your event planned then register the event beforehand, so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                    <p className="instructional-content">If you got your event planned then register it beforehand, so that our registered NGO's have an eye for your event and they will be pre-ready to take your donated food on the day of your event.</p>
                                 </div>
                                     {/* <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/> */}
                                     <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
@@ -167,9 +167,9 @@ export default function DonationForm() {
                                 <div className="donate">
                                     <div className="donate-instruction">
                                     <h4 className="heading">Donate your Food</h4>
-                                    <h6>To help the needy people and reduce the world's dumbest problem i.e. Hunger</h6>
+                                    <h6>so that we can help you in saving your food by donating it to the needy people</h6>
                                     <br />
-                                    <p className="instructional-content">If you have an ongoing event and you worry about the food that is going to waste.Fill this form so that our partnerd NGO's contact you and make sure that no food in your event get wasted.</p>
+                                    <p className="instructional-content">If you have an ongoing event and you worry about the food that is going to be wasted. Fill this form so that our registered NGO's contact you and make sure that no food in your event get wasted.</p>
                                     </div>
                                         {/* <img src={donateimg} width="70%" height="50%" position="relative" left="0px" alt="donate"/> */}
                                         <Button onClick={handleModalAfterEvent}>Donate</Button>
