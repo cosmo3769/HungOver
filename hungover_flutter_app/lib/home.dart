@@ -4,10 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geodesy/geodesy.dart';
 import 'package:hungover_flutter_app/notification.dart';
-import 'file:///E:/~MySpace/Flutters_Code/hungover_flutter_app/lib/booking_details.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'geoLocationLocator/main.dart';
+import 'registered_events.dart';
+import 'custom_event_card.dart';
 
 CollectionReference food = FirebaseFirestore.instance.collection('DonateFood');
 Stream collectionStream =
@@ -28,9 +29,7 @@ var requiedbyOrg; //plates required by org
 // ID of orgs
 var orgID;
 
-
 NotifyAlertState myAlert = NotifyAlertState(null);
-
 
 class HomeScreen extends StatefulWidget {
   User currentUser;
@@ -60,7 +59,7 @@ class HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("HungOver"),
           centerTitle: false,
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           actions: [
             Builder(builder: (BuildContext context) {
               return FlatButton.icon(
@@ -114,7 +113,7 @@ class HomeScreenState extends State<HomeScreen> {
                   // padding: EdgeInsets.symmetric(horizontal:5,vertical: 5),
                   children: snapshot.data.docs.map((DocumentSnapshot document) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 1.0),
+                      padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
                       child: new Column(
                         children: [
                           if (document.data()['email'].toString() ==
@@ -122,43 +121,78 @@ class HomeScreenState extends State<HomeScreen> {
                                   .toString())
                             Column(
                               children: [
-                                Card(
-                                    child: new Text(
-                                  " Welcome, " +
-                                      document.data()["email"].toString() +
-                                      " ",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                )),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    "Your Total plate capacity is " +
-                                        document.data()["plateCapacity"].toString() +
-                                        ".",
-                                    textAlign:TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600
-                                    ),
-                                  ),
+                                Container(
+                                    padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                    color: Colors.amberAccent.shade100,
+                                    child: Center(
+                                      child: Text(
+                                        " Welcome, " +
+                                            document
+                                                .data()["email"]
+                                                .toString() +
+                                            " ",
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    )),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Text(
-                                    "Remaining plate-capacity : " +
-                    (int.parse(document.data()["plateCapacity"])-int.parse(document.data()["platesOrdered"])).toString()
-                                        ,
-                                    textAlign:TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700
-                                    ),
+                                Card(
+                                  elevation: 3,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            5, 10, 5, 10),
+                                        child: Text(
+                                          "Your Total plate capacity is " +
+                                              document
+                                                  .data()["plateCapacity"]
+                                                  .toString() +
+                                              ".",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            5, 0, 5, 5),
+                                        child: Text(
+                                          "Remaining plate-capacity : " +
+                                              (int.parse(document.data()[
+                                                          "plateCapacity"]) -
+                                                      int.parse(document.data()[
+                                                          "platesOrdered"]))
+                                                  .toString() +
+                                              "",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: RaisedButton.icon(
+                                            elevation: 5,
+                                            icon: Icon(
+                                                Icons.replay_circle_filled),
+                                            onPressed: () {
+                                              refillPlateCapacity();
+                                            },
+                                            label: Text(
+                                                "Click here to Refill Your Plate Capacity")),
+                                      ),
+                                    ],
                                   ),
                                 )
-
                               ],
                             ),
                           Container()
@@ -169,11 +203,44 @@ class HomeScreenState extends State<HomeScreen> {
                 );
               }),
 
-          GestureDetector(
-            onTap:(){
-              refillPlateCapacity();
-            },
-              child: Chip(label: Text("Refill Your Plate Capacity"),elevation: 2,shadowColor: Colors.blueAccent,)),
+          //Registered Upcoming Events
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UpcomingEvents(orgLocation)));
+              },
+              child: Card(
+                  color: Colors.lightBlue[100],
+                  elevation: 2,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Icon(
+                          Icons.event,
+                          size: 45,
+                          color: Colors.indigo,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "Upcoming Registered Events",
+                          style: TextStyle(
+                              color: Colors.indigo,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ],
+                  )),
+            ),
+          ),
+
           // Padding(
           //   padding: const EdgeInsets.all(10.0),
           //   child: GestureDetector(
@@ -210,9 +277,9 @@ class HomeScreenState extends State<HomeScreen> {
             child: Center(
                 child: Chip(
                     elevation: 3,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.green[50],
                     label: Text(
-                      "Near-by Events",
+                      "Nearby Events",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -283,39 +350,29 @@ class HomeScreenState extends State<HomeScreen> {
                                     height: 20,
                                     color: Colors.teal[700],
                                   ),
-                                  new Text(
-                                    "Total Invitation : " +
-                                        document.data()['peopleInvited'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total Invitation : ",
+                                    values: document.data()['peopleInvited'],
                                   ),
-                                  new Text(
-                                    "Total people arrived : " +
-                                        document.data()['peopleTurnedUp'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total people arrived : ",
+                                    values: document.data()['peopleTurnedUp'],
                                   ),
-                                  new Text(
-                                    "Total Plates Ordered : " +
-                                        document.data()['platesOrdered'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total Plates Ordered : ",
+                                    values: document.data()['platesOrdered'],
                                   ),
-                                  new Text(
-                                    "Plates Remaining : " +
-                                        document.data()['platesRemaining'],
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
+                                  new CustomEvent(
+                                    rowTitle: "Plates Remaining : ",
+                                    values: document.data()['platesRemaining'],
                                   ),
-                                  new Text(
-                                    "Food-Type : " +
-                                        document.data()['typeOfFood'] +
-                                        "\n",
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Food-Type : ",
+                                    values: document.data()['typeOfFood'],
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  new Text(
-                                    "Distance : About " +
+                                  new CustomEvent(
+                                    rowTitle: "Distance : ",
+                                    values: "" +
                                         (Geodesy().distanceBetweenTwoGeoPoints(
                                                     orgLocation,
                                                     LatLng(
@@ -332,45 +389,55 @@ class HomeScreenState extends State<HomeScreen> {
                                         (Geodesy().distanceBetweenTwoGeoPoints(
                                                 orgLocation,
                                                 LatLng(
-                                                    double.parse(
-                                                        document.data()['Location']['lat']),
+                                                    double.parse(document.data()['Location']['lat']),
                                                     double.parse(document.data()['Location']['long']))))
                                             .toString()[1][0] +
                                         " K.M.",
-                                    style: TextStyle(fontSize: 14),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0,10,0,0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                     child: OutlineButton.icon(
                                       icon: Icon(Icons.call),
-                                      textColor:Colors.blue[600],
-                                      onPressed: (){
+                                      textColor: Colors.blue[600],
+                                      onPressed: () {
                                         _phoneCall(document.data()['phone']);
                                       },
                                       label: Text(
                                         "Contact Event Organiser\n${document.data()['phone']}",
-                                        textAlign:TextAlign.center,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ),
-                                  if(plateCapacity-platesOrdered>0)
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: OutlineButton.icon(
-                                      icon: Icon(Icons.fastfood),
-                                      textColor:Colors.green[500],
-                                      onPressed: int.parse(document.data()['platesRemaining'])>0 ? () {
-                                        bookAndUpdatePlates(document.id,document.data()['platesRemaining']);
-                                        plateCapacityUpdate(document.data()['platesRemaining']);
-                                      } : null,
-                                      label: Text(
-                                        int.parse(document.data()['platesRemaining'])>0 ?
-                                        "Book Plates":"Food Not Available",
-                                        style: TextStyle(fontSize: 14),
+                                  if (plateCapacity - platesOrdered > 0)
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: OutlineButton.icon(
+                                        icon: Icon(Icons.fastfood),
+                                        textColor: Colors.green[500],
+                                        onPressed: int.parse(document.data()[
+                                                    'platesRemaining']) >
+                                                0
+                                            ? () {
+                                                bookAndUpdatePlates(
+                                                    document.id,
+                                                    document.data()[
+                                                        'platesRemaining']);
+                                                plateCapacityUpdate(document
+                                                    .data()['platesRemaining']);
+                                              }
+                                            : null,
+                                        label: Text(
+                                          int.parse(document.data()[
+                                                      'platesRemaining']) >
+                                                  0
+                                              ? "Book Plates"
+                                              : "Food Not Available",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
                                       ),
                                     ),
-                                  ),
                                   Container()
                                 ],
                               ),
@@ -383,15 +450,15 @@ class HomeScreenState extends State<HomeScreen> {
               }),
           Center(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-            "No more near-by events found.",
-            style: TextStyle(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              "No more near-by events found.",
+              style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.red[600]),
-          ),
-              )),
+            ),
+          )),
           SizedBox(
             height: 20,
           ),
@@ -401,7 +468,7 @@ class HomeScreenState extends State<HomeScreen> {
             child: Center(
                 child: Chip(
                     elevation: 3,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.yellow[50],
                     label: Text(
                       "Other Events",
                       style: TextStyle(
@@ -462,61 +529,57 @@ class HomeScreenState extends State<HomeScreen> {
                                     height: 20,
                                     color: Colors.amber[700],
                                   ),
-                                  new Text(
-                                    "Total Invitation : " +
-                                        document.data()['peopleInvited'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total Invitation : ",
+                                    values: document.data()['peopleInvited'],
                                   ),
-                                  new Text(
-                                    "Total people arrived : " +
-                                        document.data()['peopleTurnedUp'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total people arrived : ",
+                                    values: document.data()['peopleTurnedUp'],
                                   ),
-                                  new Text(
-                                    "Total Plates Ordered : " +
-                                        document.data()['platesOrdered'],
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Total Plates Ordered : ",
+                                    values: document.data()['platesOrdered'],
                                   ),
-                                  new Text(
-                                    "Plates Remaining : " +
-                                        document.data()['platesRemaining'],
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
+                                  new CustomEvent(
+                                    rowTitle: "Plates Remaining : ",
+                                    values: document.data()['platesRemaining'],
                                   ),
-                                  new Text(
-                                    "Food-Type : " +
-                                        document.data()['typeOfFood'] +
-                                        "\n",
-                                    style: TextStyle(fontSize: 14),
+                                  new CustomEvent(
+                                    rowTitle: "Food-Type : ",
+                                    values: document.data()['typeOfFood'],
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  new Text(
-                                    "Distance : About " +
+                                  new CustomEvent(
+                                    rowTitle: "Distance : ",
+                                    values: "" +
                                         (Geodesy().distanceBetweenTwoGeoPoints(
                                                     orgLocation,
                                                     LatLng(
-                                                        double.parse(document
-                                                                .data()[
-                                                            'Location']['lat']),
                                                         double.parse(
-                                                            document.data()[
-                                                                    'Location']
+                                                            document.data()['Location']
+                                                                ['lat']),
+                                                        double.parse(
+                                                            document.data()['Location']
                                                                 ['long']))) /
                                                 1000)
                                             .toString()
                                             .split(".")[0] +
+                                        "." +
+                                        (Geodesy().distanceBetweenTwoGeoPoints(
+                                                orgLocation,
+                                                LatLng(
+                                                    double.parse(document.data()['Location']['lat']),
+                                                    double.parse(document.data()['Location']['long']))))
+                                            .toString()[1][0] +
                                         " K.M.",
-                                    style: TextStyle(fontSize: 14),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0,10,0,0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                     child: OutlineButton.icon(
                                       icon: Icon(Icons.call),
-                                      textColor:Colors.blue[600],
-                                      onPressed: (){
+                                      textColor: Colors.blue[600],
+                                      onPressed: () {
                                         _phoneCall(document.data()['phone']);
                                       },
                                       label: Text(
@@ -526,23 +589,34 @@ class HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ),
-                                  if(plateCapacity-platesOrdered>0)
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: OutlineButton.icon(
-                                      icon: Icon(Icons.fastfood),
-                                      textColor:Colors.amber[600],
-                                      onPressed: int.parse(document.data()['platesRemaining'])>0 ? () {
-                                        bookAndUpdatePlates(document.id,document.data()['platesRemaining']);
-                                        plateCapacityUpdate(document.data()['platesRemaining']);
-                                      } : null,
-                                      label: Text(
-                                        int.parse(document.data()['platesRemaining'])>0 ?
-                                        "Book Plates":"Food Not Available",
-                                        style: TextStyle(fontSize: 14),
+                                  if (plateCapacity - platesOrdered > 0)
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: OutlineButton.icon(
+                                        icon: Icon(Icons.fastfood),
+                                        textColor: Colors.amber[600],
+                                        onPressed: int.parse(document.data()[
+                                                    'platesRemaining']) >
+                                                0
+                                            ? () {
+                                                bookAndUpdatePlates(
+                                                    document.id,
+                                                    document.data()[
+                                                        'platesRemaining']);
+                                                plateCapacityUpdate(document
+                                                    .data()['platesRemaining']);
+                                              }
+                                            : null,
+                                        label: Text(
+                                          int.parse(document.data()[
+                                                      'platesRemaining']) >
+                                                  0
+                                              ? "Book Plates"
+                                              : "Food Not Available",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -583,75 +657,70 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   //Updates the Plates Remaining of an Event after confirmation
-  Future<void> bookAndUpdatePlates(String id,String remainingPlates) {
-    requiedbyOrg=plateCapacity-platesOrdered;
-    int leftPlates=int.parse(remainingPlates)-requiedbyOrg;
-    if(leftPlates<0)
-      leftPlates=0;
+  Future<void> bookAndUpdatePlates(String id, String remainingPlates) {
+    requiedbyOrg = plateCapacity - platesOrdered;
+    int leftPlates = int.parse(remainingPlates) - requiedbyOrg;
+    if (leftPlates < 0) leftPlates = 0;
     return food
         .doc(id)
         .update({'platesRemaining': leftPlates.toString()})
         .then((value) => print("Remaining Plates Updated"))
-        .catchError((error) => print("Failed to update remaining plates data: $error"));
+        .catchError(
+            (error) => print("Failed to update remaining plates data: $error"));
   }
 
   //Updates the Plates Remaining of an ORGANIZATION after confirmation
   Future<void> plateCapacityUpdate(String plates) {
-    if(int.parse(plates)>=(requiedbyOrg))
+    if (int.parse(plates) >= (requiedbyOrg))
       setState(() {
-        platesOrdered+=requiedbyOrg;
+        platesOrdered += requiedbyOrg;
       });
-
     else
       setState(() {
-        platesOrdered+=int.parse(plates);
+        platesOrdered += int.parse(plates);
       });
-
 
     return orgs
         .doc(orgID.toString())
         .update({'platesOrdered': platesOrdered.toString()})
         .then((value) => print("Ordered Plates Updated"))
-        .catchError((error) => print("Failed to update ordered plates data: $error"));
+        .catchError(
+            (error) => print("Failed to update ordered plates data: $error"));
   }
 
   //getPlate Capacity of orgs
   void _getOrgsPlateCapacity() async {
-
     var result = await FirebaseFirestore.instance
         .collection("organisations")
         .where("email",
-        isEqualTo: FirebaseAuth.instance.currentUser.email.toString())
+            isEqualTo: FirebaseAuth.instance.currentUser.email.toString())
         .get();
     result.docs.forEach((res) {
       print(res.data());
       setState(() {
-        plateCapacity=int.parse(res.data()['plateCapacity']);
-        platesOrdered=int.parse(res.data()['platesOrdered']);
-        orgID=res.id;
+        plateCapacity = int.parse(res.data()['plateCapacity']);
+        platesOrdered = int.parse(res.data()['platesOrdered']);
+        orgID = res.id;
       });
     });
   }
 
   //refillPlateCapacity
-  Future<void> refillPlateCapacity(){
+  Future<void> refillPlateCapacity() {
     setState(() {
-      platesOrdered=0;
+      platesOrdered = 0;
     });
 
     return orgs
         .doc(orgID.toString())
         .update({'platesOrdered': platesOrdered.toString()})
         .then((value) => print("Refill Plates Updated"))
-        .catchError((error) => print("Failed to update refill plates data: $error"));
-
+        .catchError(
+            (error) => print("Failed to update refill plates data: $error"));
   }
 
   //Call Launcher
-void _phoneCall(phoneNumber){
-  launch("tel:$phoneNumber>");
-}
-
-
-
+  void _phoneCall(phoneNumber) {
+    launch("tel:$phoneNumber>");
+  }
 }

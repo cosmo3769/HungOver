@@ -71,6 +71,52 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(
+          child: ListView(children: [
+        DrawerHeader(
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+          decoration: BoxDecoration(
+            color: Colors.indigo,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.indigo,
+                  radius: 70,
+                  child: HungOverLogo.hungOverLogo(),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: Center(
+            child: Text(
+              "HungOver",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 45,
+                  color: Colors.indigo),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: Center(
+            child: Text("An Initiative to feed everyone.",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.blueGrey)),
+          ),
+        ),
+        Divider(
+          color: Colors.indigo,
+        )
+      ])),
       appBar: AppBar(
         title: Text(
           "HungOver",
@@ -167,29 +213,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(10.0),
                   child: ClipOval(child: HungOverLogo.hungOverLogo()),
                 ),
-
                 Text("You are good to Go."),
                 Divider(height: 32),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: RaisedButton.icon(
                       onPressed: () {
-                        if(FirebaseAuth.instance.currentUser==null)
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AuthTypeSelector() ));
+                        if (FirebaseAuth.instance.currentUser == null)
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AuthTypeSelector()));
                         else
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen(FirebaseAuth.instance.currentUser) ));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen(
+                                      FirebaseAuth.instance.currentUser)));
                       },
                       icon: Icon(Icons.arrow_forward_ios),
                       label: Text("Proceed")),
                 ),
-
               ],
             ),
         ]),
       ),
     );
   }
-
-
-
 }
