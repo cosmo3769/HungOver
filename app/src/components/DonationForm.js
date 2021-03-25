@@ -155,6 +155,8 @@ export default function DonationForm() {
                                     <h6>so that we can help you in saving your food by donating it to the needy people</h6>
                                     <br />
                                     <p className="instructional-content">If you got your event planned then register it beforehand, so that our registered NGO's have an eye for your event and they will be pre-ready to take your donated food on the day of your event.</p>
+                                    <br />
+                                    <p className="instructional-content">Even you have registered, please fill up the donation form in the next section on the day of your event.</p>
                                 </div>
                                     {/* <img src={registerimg} width="70%" height="70%" position="relative" left="0px" alt="register"/> */}
                                     <Button onClick={handleModalBeforeEvent}>Register</Button>{' '}
