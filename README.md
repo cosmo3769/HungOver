@@ -34,25 +34,25 @@ To Run the HungOver Web app on the local device, one must get the following requ
 
 1. **Installation Guide**
 
-* Download node js in your system. You can do this from the link given here. [node js](https://nodejs.org/en/download/).
+    Download node js in your system. You can do this from the link given here. 
+
+    [node js](https://nodejs.org/en/download/).
 
 2. **Verify the installation**
 
-Verify your installation if it was suucessful.
+    Verify the software installation by running the following command in the Terminal/Command Prompt:
 
-```
-node -v
-```
+    ```
+    node -v
+    ```
 
 3. **Run the code**
 
-- Clone the repo.
-- Go ta app directory.
-- Run `npm install` in your terminal. This will install all the dependencies required to run the application.
-- Run `npm start` in your terminal. This will start the development server.
-- Go to `localhost:3000` in your browser.
-
-That's it. Now you're good to go!  
+    - Clone the repo.
+    - Go ta app directory.
+    - Run `npm install` in your terminal. This will install all the dependencies required to run the application.
+    - Run `npm start` in your terminal. This will start the development server.
+    - Go to `localhost:3000` in your browser. 
 
 ### 📱 HungOver Flutter App for Android   
 
@@ -68,7 +68,7 @@ To Run the HungOver Flutter app on the local device, one must get the following 
 
     To get started with necessary software installations, follow the step-wise detailed instructions by visiting the link below : 
 
-    https://flutter.dev/docs/get-started/install
+    [flutter](https://flutter.dev/docs/get-started/install)
 
 2. **Accept the Android Licenses**
 
