@@ -6,14 +6,14 @@
 <h1 align="center">HungOver</h1>
 <h5 align="center">An inititive to feed everyone.</h5>
 <p align="center">
-    <a href="">
+    <a href="https://github.com/piyush-cosmo/HungOver/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-GNU General Public License v3.0-blue.svg" alt="GNU General Public License v3.0" />
   </a>
 <p>
 
 ## What’s In This Document
 
-- [About HungOver](#about-hungover) 
+- [About HungOver](#-about-hungover) 
 - [Get Up and Running in 5 Minutes](#-get-up-and-running-in-5-minutes)
   - <b>[HungOver Web App](#-hungover-web-app)</b>
   - <b>[HungOver Flutter App (Android)](#-hungover-flutter-app-for-android)</b>
