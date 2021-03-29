@@ -1,9 +1,14 @@
-<h1 align="center">HungOver</h1>
 <p align="center">
   <a href="https://github.com/piyush-cosmo/HungOver">
     <img alt="HungOver" src="https://github.com/piyush-cosmo/HungOver/blob/master/hungover_flutter_app/assets/images/hungOver.png" height="200" width="200" />
   </a>
 </p>
+<h1 align="center">HungOver</h1>
+<p align="center">
+    <a href="">
+    <img src="https://img.shields.io/badge/license-GNU General Public License v3.0-blue.svg" alt="GNU General Public License v3.0" />
+  </a>
+<p>
 
 ## What’s In This Document
 
