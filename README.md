@@ -21,6 +21,13 @@
 - [Thanks to Our Team](#-thanks)
 
 ## 🥪 About HungOver 
+
+India is a land of vibrant rituals and celebrations. Throughout the year we see various community events being organized, and any such community event is considered incomplete without a meal to satisfy your hunger needs. However there is also a cost to pay - wastage of the surplus. We identified two primary reasons behind such wastage:
+
+1. Inability to accurately predict the number of plates to be ordered considering the number of guests invited.
+2. Inability to properly distribute the surplus from the event where it is a “waste” to the poor where it is a “need”.
+
+Hence, we came up with an app idea primarily focused to address these issues and thereby solving two of the 17 sustainable development goals of the United Nations - “Responsible Consumption & Production” and also “Zero Hunger”. We present HungOver - an app designed to fight global hunger by rapidly channeling the surplus food that’s wasted in community events to the needy people via local NGOs and other partners.
   
 ## 🚀 Get Up and Running in 5 Minutes
 
