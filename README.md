@@ -26,7 +26,33 @@
 
 ### 💻 HungOver Web App  
 
+To Run the HungOver Web app on the local device, one must get the following requirements : 
 
+* Operating System (OS): Windows/Linux/MacOS/ChromeOS	
+* node and npm
+* Code Editor (Visual Studio Code) or any other which you prefer
+
+1. **Installation Guide**
+
+* Download node js in your system. You can do this from the link given here. [node js](https://nodejs.org/en/download/).
+
+2. **Verify the installation**
+
+Verify your installation if it was suucessful.
+
+```
+node -v
+```
+
+3. **Run the code**
+
+- Clone the repo.
+- Go ta app directory.
+- Run `npm install` in your terminal. This will install all the dependencies required to run the application.
+- Run `npm start` in your terminal. This will start the development server.
+- Go to `localhost:3000` in your browser.
+
+That's it. Now you're good to go!  
 
 ### 📱 HungOver Flutter App for Android   
 
