@@ -1,12 +1,20 @@
-# HungOver
+<h1 align="center">HungOver</h1>
+<p align="center">
+  <a href="https://github.com/piyush-cosmo/HungOver">
+    <img alt="HungOver" src="https://github.com/piyush-cosmo/HungOver/blob/master/hungover_flutter_app/assets/images/hungOver.png" height="200" width="200" />
+  </a>
+</p>
 
 ## What’s In This Document
 
+- [About HungOver](#about-hungover) 
 - [Get Up and Running in 5 Minutes](#-get-up-and-running-in-5-minutes)
   - <b>[HungOver Web App](#-hungover-web-app)</b>
   - <b>[HungOver Flutter App (Android)](#-hungover-flutter-app-for-android)</b>
 - [License](#memo-license)
 - [Thanks to Our Team](#-thanks)
+
+## About HungOver 
   
 ## 🚀 Get Up and Running in 5 Minutes
 
