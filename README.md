@@ -4,6 +4,7 @@
   </a>
 </p>
 <h1 align="center">HungOver</h1>
+<h5 align="center">An inititive to feed everyone.</h5>
 <p align="center">
     <a href="">
     <img src="https://img.shields.io/badge/license-GNU General Public License v3.0-blue.svg" alt="GNU General Public License v3.0" />
@@ -19,7 +20,7 @@
 - [License](#memo-license)
 - [Thanks to Our Team](#-thanks)
 
-## About HungOver 
+## 🥪 About HungOver 
   
 ## 🚀 Get Up and Running in 5 Minutes
 
