@@ -33,7 +33,9 @@ Hence, we came up with an app idea primarily focused to address these issues and
 
 ### 💻 HungOver Web App  
 
-To Run the HungOver Web app on the local device, one must get the following requirements : 
+To Run the HungOver Web app on the local device, one must get the following requirements :
+
+<img align="right" src="https://i.ibb.co/CJfW18H/ship.gif" width="200"/>
 
 * Operating System (OS): Windows/Linux/MacOS/ChromeOS	
 * node and npm
